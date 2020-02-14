@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="me.mehedee.jokes.ui.MainActivityViewModel" />
+
+        <variable
+            name="vm"
+            type="me.mehedee.jokes.ui.MainActivityViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.MainActivity">
+
+        <TextView
+            android:id="@+id/tv_joke"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:text="@{vm.status == MainActivityViewModel.STATUS_LOADING_JOKE?`Loading...`:vm.currentJoke}"
+            android:textColor="@android:color/primary_text_light"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Doctor: &quot;I have some news about your baby.&quot;\nParents: &quot;Don't tell us the gender, we want to keep it a surprise.&quot;\nDoctor: &quot;Ohh, you're those type of people. Okay, well IT is not breathing.&quot;" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="24dp"
+            android:text="@{vm.status == MainActivityViewModel.STATUS_NO_JOKE ? `The button` : `Another one`}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.50"
+            android:enabled="@{vm.status != MainActivityViewModel.STATUS_LOADING_JOKE}"
+            android:onClick="@{()->vm.loadJoke()}"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
