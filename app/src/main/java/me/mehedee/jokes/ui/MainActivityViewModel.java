@@ -19,12 +19,17 @@ public class MainActivityViewModel extends ViewModel {
         status = new MutableLiveData<>(STATUS_NO_JOKE);
         currentJoke = new MutableLiveData<>("CLICK THE BUTTON already!");
 
-        repository = JokesRepository.getInstance()
+        repository = JokesRepository.getInstance();
     }
 
-    public void loadJoke(){
+    public void loadJoke() {
         status.setValue(STATUS_LOADING_JOKE);
 
+        repository.getOne(joke -> {
+            currentJoke.postValue(joke.joke);
+
+            status.postValue(STATUS_SHOWING_JOKE);
+        });
 
 
     }

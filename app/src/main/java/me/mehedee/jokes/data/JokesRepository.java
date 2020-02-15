@@ -1,6 +1,5 @@
 package me.mehedee.jokes.data;
 
-import android.content.Context;
 import android.util.Log;
 
 import androidx.core.util.Consumer;
@@ -17,19 +16,20 @@ public class JokesRepository {
     private static JokesRepository instance;
     private JokesApiService jokesApiService;
 
-    private JokesRepository(Context ctx){
+    private JokesRepository() {
 
-        jokesApiService = ApiClient.getClient(ctx)
+        jokesApiService = ApiClient.getClient()
                 .create(JokesApiService.class);
     }
-    public static JokesRepository getInstance(Context ctx){
+
+    public static JokesRepository getInstance() {
         if (instance == null)
-            instance = new JokesRepository(ctx);
+            instance = new JokesRepository();
 
         return instance;
     }
 
-    public void getOne(final Consumer<Joke> jokeConsumer){
+    public void getOne(final Consumer<Joke> jokeConsumer) {
         jokesApiService.getAJoke()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
