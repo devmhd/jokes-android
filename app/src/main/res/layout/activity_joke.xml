@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="me.mehedee.jokes.ui.JokeActivityViewModel"/>
         <variable
             name="vm"
             type="me.mehedee.jokes.ui.JokeActivityViewModel" />
@@ -29,8 +30,10 @@
             android:id="@+id/btn_new_joke"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="The button"
+            android:text="@{vm.status == JokeActivityViewModel.STATUS_NO_JOKE ? `The button` : `Another one`}"
+            android:enabled="@{vm.status != JokeActivityViewModel.STATUS_LOADING_JOKE}"
             android:onClick="@{() -> vm.loadJoke()}"
+            tools:text="Another one"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
