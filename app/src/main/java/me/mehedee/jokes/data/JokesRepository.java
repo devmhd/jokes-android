@@ -36,7 +36,7 @@ public class JokesRepository {
                 .subscribeWith(new DisposableSingleObserver<JokeResponse>() {
                     @Override
                     public void onSuccess(JokeResponse jokeResponse) {
-                        Joke j = new Joke(jokeResponse);
+                        Joke j = categorize(jokeResponse);
                         jokeConsumer.accept(j);
                     }
 
@@ -45,5 +45,20 @@ public class JokesRepository {
                         Log.e(this.getClass().getName(), "ERROR IN NETWORK", e);
                     }
                 });
+    }
+
+    private Joke categorize(JokeResponse response){
+        if (response.type.equals("single")){
+            SingleJoke joke = new SingleJoke(response);
+            joke.joke = response.joke;
+
+            return joke;
+        } else {
+            TwoPartJoke joke = new TwoPartJoke(response);
+            joke.setup = response.setup;
+            joke.delivery = response.delivery;
+
+            return joke;
+        }
     }
 }

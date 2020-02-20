@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="joke"
+            type="me.mehedee.jokes.data.SingleJoke" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".SingleJokeFragment">
+
+        <TextView
+            android:id="@+id/tv_single_joke"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="center_vertical"
+            android:text="@{joke.joke}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textSize="24sp"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Doctor: &quot;I have some news about your baby.&quot;\nParents: &quot;Don't tell us the gender, we want to keep it a surprise.&quot;\nDoctor: &quot;Ohh, you're those type of people. Okay, well IT is not breathing.&quot;" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
