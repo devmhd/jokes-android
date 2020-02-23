@@ -6,6 +6,6 @@ import retrofit2.http.GET;
 
 public interface JokesApiService {
 
-    @GET("joke/Any?type=single")
+    @GET("joke/Any")
     Single<JokeResponse> getAJoke();
 }

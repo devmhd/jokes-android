@@ -16,6 +16,7 @@ public class JokeActivityViewModel extends ViewModel {
     public static final int STATUS_NO_JOKE = 0;
     public static final int STATUS_LOADING_JOKE = 1;
     public static final int STATUS_SHOWING_JOKE = 2;
+    public static final int STATUS_NO_INTRENET = 3;
 
     public JokeActivityViewModel() {
         status = new MutableLiveData<>(STATUS_NO_JOKE);
@@ -30,6 +31,8 @@ public class JokeActivityViewModel extends ViewModel {
             currentJoke.postValue(joke);
 
             status.postValue(STATUS_SHOWING_JOKE);
+        }, () -> {
+            status.postValue(STATUS_NO_INTRENET);
         });
 
 

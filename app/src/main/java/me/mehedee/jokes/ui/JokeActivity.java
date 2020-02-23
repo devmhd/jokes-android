@@ -12,8 +12,10 @@ import me.mehedee.jokes.JokeLoadingFragment;
 import me.mehedee.jokes.NoJokeFragment;
 import me.mehedee.jokes.R;
 import me.mehedee.jokes.SingleJokeFragment;
+import me.mehedee.jokes.TwoPartJokeFragment;
 import me.mehedee.jokes.data.Joke;
 import me.mehedee.jokes.data.SingleJoke;
+import me.mehedee.jokes.data.TwoPartJoke;
 import me.mehedee.jokes.databinding.ActivityJokeBinding;
 
 public class JokeActivity extends AppCompatActivity {
@@ -41,10 +43,12 @@ public class JokeActivity extends AppCompatActivity {
 
                 case JokeActivityViewModel.STATUS_SHOWING_JOKE:
                     showJoke(vm.currentJoke.getValue());
+                    break;
+                case JokeActivityViewModel.STATUS_NO_INTRENET:
+                    showNoInternet();
             }
         });
     }
-
 
     private void showNoJoke(){
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -56,6 +60,11 @@ public class JokeActivity extends AppCompatActivity {
         transaction.replace(R.id.fragment_container, JokeLoadingFragment.newInstance(), "LOADINGJOKE").commit();
     }
 
+    private void showNoInternet(){
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, new NoInternetFragment(), "NONET").commit();
+    }
+
     private void showJoke(Joke joke){
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -65,7 +74,6 @@ public class JokeActivity extends AppCompatActivity {
     private Fragment prepare(Joke joke){
         if (joke instanceof SingleJoke)
             return SingleJokeFragment.newInstance((SingleJoke) joke);
-        return NoJokeFragment.newInstance();
+        return TwoPartJokeFragment.getInstance((TwoPartJoke) joke);
     }
-
 }

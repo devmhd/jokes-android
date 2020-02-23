@@ -29,7 +29,7 @@ public class JokesRepository {
         return instance;
     }
 
-    public void getOne(final Consumer<Joke> jokeConsumer) {
+    public void getOne(final Consumer<Joke> jokeConsumer, final Runnable onError) {
         jokesApiService.getAJoke()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -43,6 +43,7 @@ public class JokesRepository {
                     @Override
                     public void onError(Throwable e) {
                         Log.e(this.getClass().getName(), "ERROR IN NETWORK", e);
+                        onError.run();
                     }
                 });
     }
